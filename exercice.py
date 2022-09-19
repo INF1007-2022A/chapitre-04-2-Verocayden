@@ -4,16 +4,41 @@
 import random
 
 def get_first_part_of_name(name):
-	return ""
+	first_part = name[0:name.find("-")]
+	return first_part.capitalize()
 
 def get_random_sentence(animals, adjectives, fruits):
-	return ""
+	animal_choice = random.choice(animals)
+	adjective_choice = random.choice(adjectives)
+	fruit_choice = random.choice(fruits)
+	random_sentence = f"Aujourd’hui, j’ai vu un {animal_choice} s’emparer d’un panier {adjective_choice} plein de {fruit_choice}."
+	return random_sentence
 
-def encrypt(text, shift):
-	return ""
+def encrypt(text, shift): # Débug le débordement
+	new_text = ""
+	for letter in text:
+		ord_letter = ord(letter)
+		if 97 <= ord_letter <= 122: # minuscules
+			ord_letter -= 32
+		if 65 <= ord_letter <= 90:
+			ord_letter += shift
+			if ord_letter > 90:
+				ord_letter = 64 + (ord_letter % 90)
+		new_text += chr(ord_letter)
+	return new_text
 
 def decrypt(encrypted_text, shift):
-	return ""
+	new_text = ""
+	for letter in encrypted_text:
+		ord_letter = ord(letter)
+		if 97 <= ord_letter <= 122: # minuscules
+			ord_letter -= 32
+		if 65 <= ord_letter <= 90:
+			ord_letter -= shift
+			if ord_letter < 65:
+				ord_letter = 91 - (65 % ord_letter) # Corriger
+		new_text += chr(ord_letter)
+	return new_text
 
 
 if __name__ == "__main__":
